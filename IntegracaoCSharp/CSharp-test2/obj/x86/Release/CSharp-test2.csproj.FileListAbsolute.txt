@@ -1,0 +1,8 @@
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/bin/Release/CSharp-test2.exe
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/bin/Release/BouncyCastle.Crypto.dll
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/bin/Release/Newtonsoft.Json.dll
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/bin/Release/PagarMe.dll
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/bin/Release/Newtonsoft.Json.xml
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/obj/x86/Release/CSharp-test2.csproj.CopyComplete
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/obj/x86/Release/CSharp-test2.exe
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/obj/x86/Release/CSharp-test2.csprojAssemblyReference.cache

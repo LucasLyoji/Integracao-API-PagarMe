@@ -1,0 +1,10 @@
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/obj/x86/Debug/CSharp-test2.csprojAssemblyReference.cache
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/bin/Debug/CSharp-test2.exe
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/bin/Debug/CSharp-test2.pdb
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/bin/Debug/BouncyCastle.Crypto.dll
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/bin/Debug/Newtonsoft.Json.dll
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/bin/Debug/PagarMe.dll
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/bin/Debug/Newtonsoft.Json.xml
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/obj/x86/Debug/CSharp-test2.csproj.CopyComplete
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/obj/x86/Debug/CSharp-test2.exe
+/home/lucas/Documentos/Codes/integração/CSharp-test2/CSharp-test2/obj/x86/Debug/CSharp-test2.pdb
