@@ -1,0 +1,18 @@
+NetBeans 
+Integração JAVA
+
+criar projeto com: Maven -> aplicação java
+no arquivo pom.xml: <dependencies>
+			<dependency>
+			<groupId>me.pagar</groupId>
+			<artifactId>pagarme-java</artifactId>
+			<version>1.5.9</version>
+		    </dependency>
+		    </dependencies>
+
+só pode ter um public static void main (ponto de entrada do projeto)
+criar classes de java no: pacotes de codigo fonte/com.mycompany.integracaojava
+
+READ ME: (para rodar)
+
+SHIFT + F6 no arquivo chamada.java
