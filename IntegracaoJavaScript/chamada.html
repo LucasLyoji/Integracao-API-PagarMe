@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html>
+<script src="https://assets.pagar.me/pagarme-js/4.5/pagarme.min.js" ></script>
+<head>
+<style>
+
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700);
+body {
+  background-color: #e6fee6;
+}
+.button {
+    width: 400px;
+    height: 40px;
+    background: linear-gradient(to bottom, #ADFF2F 0%,#90EE90 100%); /* W3C */
+    border: none;
+    border-radius: 5px;
+    position: relative;
+    border-bottom: 4px solid #3CB371;
+    color: #000000;
+    font-weight: 600;
+    font-family: 'Open Sans', sans-serif;
+    text-shadow: 1px 1px 1px rgba(0,0,0,.4);
+    font-size: 15px;
+    text-align: left;
+    text-indent: 5px;
+    box-shadow: 0px 3px 0px 0px rgba(0,0,0,.2);
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    margin-left: 250px;
+}
+button:active {
+  box-shadow: 0px 2px 0px 0px rgba(0,0,0,.2);
+  top: 1px;
+}
+
+button:after {
+  content: "";
+  width: 0;
+  height: 0;
+  display: block;
+  border-top: 20px solid #3CB371;
+  border-bottom: 20px solid #3CB371;
+  border-left: 16px solid transparent;
+  border-right: 20px solid #3CB371;
+  position: absolute;
+  opacity: 0.6; 
+  right: 0;
+  top: 0;
+  border-radius: 0 5px 5px 0;  
+}
+a {
+    text-decoration: none;
+} 
+
+</style>
+<body>
+<h2>Integração da API-PagarMe em JavaScript</h2>
+<br>
+<button class="button" onclick="split()"> Clique aqui para realizar uma transação com split </button>
+<br>
+<button class="button" onclick="recorrencia()"> Clique aqui para realizar uma assinatura </button>
+<br>
+<button class="button" onclick="transferencia()"> Clique aqui para realizar uma transferência </button>
+<br>
+<button class="button" onclick="antecipacao()"> Clique aqui para realizar uma antecipação </button>
+<br>
+<button class="button" onclick="recorrenciaSplit()"> Clique aqui para realizar uma assinatura com split </button>
+<br>
+<button class="button" onclick="estornoSplit()"> Clique aqui para realizar um estorno com split </button>
+<br>
+<button class="button" onclick="postback()"> Clique aqui para verificar o status de um postback </button>
+<br>
+<button class="button" onclick="elasticsearch()"> Clique aqui para realisar uma busca avançada</button>
+
+</body>
+</head>
+<script>
+    
+function split() {
+
+    pagarme.client.connect({ api_key: 'ak_test_jbIXhrHXHOaUUNKtUVrkT9HGL60SSg' })
+    .then(client => client.transactions.create({
+        "amount": 1000,
+        "card_id": "card_ck394f18e01flvh6d3sdtoohj",
+        "postback_url": "http://requestb.in/pkt7pgpk",
+        "split_rules":[
+            {
+            "liable": "true",
+            "charge_processing_fee": "true",
+            "percentage": "90",
+            "charge_remainder_fee": "true",
+            "recipient_id":"re_ck0zkjmuj00gln86dajtwrfws"
+            },
+            {
+            "liable": "false",
+            "charge_processing_fee": "false",
+            "percentage": "10",
+            "charge_remainder_fee": "false",
+            "recipient_id":"re_ck0zjmw1s007ier6eysyd3agj"
+            }
+            ],
+        "customer": {
+        "external_id": "#3311",
+        "name": "Morpheus Fishburne",
+        "type": "individual",
+        "country": "br",
+        "email": "mopheus@nabucodonozor.com",
+        "documents": [
+            {
+            "type": "cpf",
+            "number": "30621143049"
+            }
+        ],
+        "phone_numbers": ["+5511999998888", "+5511888889999"],
+        "birthday": "1965-01-01"
+        },
+        "billing": {
+        "name": "Trinity Moss",
+        "address": {
+            "country": "br",
+            "state": "sp",
+            "city": "Cotia",
+            "neighborhood": "Rio Cotia",
+            "street": "Rua Matrix",
+            "street_number": "9999",
+            "zipcode": "06714360"
+        }
+        },
+        "shipping": {
+        "name": "Neo Reeves",
+        "fee": 1000,
+        "delivery_date": "2000-12-21",
+        "expedited": true,
+        "address": {
+            "country": "br",
+            "state": "sp",
+            "city": "Cotia",
+            "neighborhood": "Rio Cotia",
+            "street": "Rua Matrix",
+            "street_number": "9999",
+            "zipcode": "06714360"
+        }
+        },
+        "items": [
+        {
+            "id": "r123",
+            "title": "Red pill",
+            "unit_price": 10000,
+            "quantity": 1,
+            "tangible": true
+        },
+        {
+            "id": "b123",
+            "title": "Blue pill",
+            "unit_price": 10000,
+            "quantity": 1,
+            "tangible": true
+        }
+        ]
+    }))
+    .then(transaction => { alert("A transação número " + transaction.id + " foi criada!")})
+}
+
+function recorrencia() {
+
+    pagarme.client.connect({ api_key: 'ak_test_jbIXhrHXHOaUUNKtUVrkT9HGL60SSg' })
+    .then(client => client.subscriptions.create({
+    plan_id: 435922,
+    card_id: 'card_ck394f18e01flvh6d3sdtoohj',
+    customer: {
+        email: 'test@somewhere.com',
+        document_number: '30621143049'
+    }
+    }))
+    .then(subscription => { alert("A assinatura número " + subscription.id + " foi criada!")})
+}
+
+function transferencia() {
+
+    pagarme.client.connect({ api_key: 'ak_test_jbIXhrHXHOaUUNKtUVrkT9HGL60SSg' })
+    .then(client => client.transfers.create({
+        amount: 10000,
+        recipient_id: 're_ck0zjmw1s007ier6eysyd3agj',
+    }))
+    .then(transfer => { alert("A transferência: " + transfer.id + ", de " + transfer.amount + " centavos foi realizada para a conta bancária do recebedor " + transfer.source_id + "!")})
+}
+
+function antecipacao() {
+
+  var milliseconds = (new Date).getTime();
+  var recipient_id = "re_ck0zjmw1s007ier6eysyd3agj";
+
+  pagarme.client.connect({ api_key: 'ak_test_jbIXhrHXHOaUUNKtUVrkT9HGL60SSg' })
+  .then(client =>  client.bulkAnticipations.create({
+  	recipientId: recipient_id,
+    payment_date: milliseconds+604800000,
+    timeframe: 'start',
+    requested_amount: '9000',
+  }))
+  .then(bulkAnticipation => { alert("A antecipação: " + bulkAnticipation.id + ", de " + bulkAnticipation.amount + " centavos foi criada para o recebedor " + recipient_id + "!")})
+}
+
+function recorrenciaSplit() {
+
+    pagarme.client.connect({ api_key: "ak_test_jbIXhrHXHOaUUNKtUVrkT9HGL60SSg" })
+.then( client => {
+
+    client.subscriptions.create({
+      plan_id: "435922",
+      card_id: 'card_ck394f18e01flvh6d3sdtoohj',
+      customer: {
+        document_number: '45473486851',
+        name: 'Teste Johnny',
+        email: 'test@email.com',
+        born_at: '17071996',
+        gender: 'M',
+        address: {
+          street: 'Rua Fidêncio Ramos',
+          complementary: 'apto',
+          street_number: '308',
+          neighborhood: 'pinheiros',
+          city: 'São Paulo',
+          state: 'SP',
+          zipcode: '04551010',
+          country: 'Brasil'
+        },
+        phone: {
+          ddd: '11',
+          number: '999887766'
+        }
+      },
+      split_rules: [
+        {
+          recipient_id: "re_ck0zkjmuj00gln86dajtwrfws",
+          charge_processing_fee: true,
+          liable: true,
+          percentage: 50,
+          charge_remainder_fee: true
+        },
+        {
+          recipient_id: "re_ck0zjmw1s007ier6eysyd3agj",
+          charge_processing_fee: false,
+          liable: false,
+          percentage: 50,
+          charge_remainder_fee: false
+        }
+      ]
+    })
+    .then( subscription => { alert("A assinatura com split número " + substription.id + " foi criada!")}) 
+});
+}
+
+function estornoSplit() {
+
+    pagarme.client.connect({ api_key: 'ak_test_jbIXhrHXHOaUUNKtUVrkT9HGL60SSg' })
+    .then(client => { 
+    client.transactions.create({
+    "amount": 21000,
+    "card_number": "4111111111111111",
+    "card_cvv": "123",
+    "card_expiration_date": "0922",
+    "card_holder_name": "teste codigo js Fishburne",
+    "split_rules":[
+    	{
+    	"liable": "true",
+    	"charge_processing_fee": "true",
+    	"percentage": "90",
+    	"charge_remainder_fee": "true",
+    	"recipient_id":"re_ck0zkjmuj00gln86dajtwrfws"
+    	},
+    	{
+    	"liable": "false",
+    	"charge_processing_fee": "false",
+    	"percentage": "10",
+    	"charge_remainder_fee": "false",
+    	"recipient_id":"re_ck0zjmw1s007ier6eysyd3agj"
+    	}
+    	],
+    "customer": {
+      "external_id": "#3311",
+      "name": "Morpheus Fishburne",
+      "type": "individual",
+      "country": "br",
+      "email": "mopheus@nabucodonozor.com",
+      "documents": [
+        {
+          "type": "cpf",
+          "number": "30621143049"
+        }
+      ],
+      "phone_numbers": ["+5511999998888", "+5511888889999"],
+      "birthday": "1965-01-01"
+    },
+    "billing": {
+      "name": "Trinity Moss",
+      "address": {
+        "country": "br",
+        "state": "sp",
+        "city": "Cotia",
+        "neighborhood": "Rio Cotia",
+        "street": "Rua Matrix",
+        "street_number": "9999",
+        "zipcode": "06714360"
+      }
+    },
+    "shipping": {
+      "name": "Neo Reeves",
+      "fee": 1000,
+      "delivery_date": "2000-12-21",
+      "expedited": true,
+      "address": {
+        "country": "br",
+        "state": "sp",
+        "city": "Cotia",
+        "neighborhood": "Rio Cotia",
+        "street": "Rua Matrix",
+        "street_number": "9999",
+        "zipcode": "06714360"
+      }
+    },
+    "items": [
+      {
+        "id": "r123",
+        "title": "Red pill",
+        "unit_price": 10000,
+        "quantity": 1,
+        "tangible": true
+      },
+      {
+        "id": "b123",
+        "title": "Blue pill",
+        "unit_price": 10000,
+        "quantity": 1,
+        "tangible": true
+      }
+    ]
+    }).then(transaction =>
+    client.transactions.refund({
+          id: transaction.id,
+          amount: 21000,
+          split_rules: [
+            {
+              id: transaction.split_rules[0]["id"],
+              recipient_id: "re_ck0zjmw1s007ier6eysyd3agj",
+              charge_processing_fee: false,
+              liable: false,
+              charge_remainder_fee: false,
+              percentage: 10
+            },
+            {
+              id: transaction.split_rules[1]["id"],
+              recipient_id: "re_ck0zkjmuj00gln86dajtwrfws",
+              charge_processing_fee: true,
+              liable: true,
+              charge_remainder_fee: true,
+              percentage: 90
+            }
+          ]
+      }).then(refund => { alert("A transação número " + refund.id + " foi criada e estornada!")}) 
+)})
+}
+
+function postback() {
+
+    pagarme.client.connect({ api_key: 'ak_test_jbIXhrHXHOaUUNKtUVrkT9HGL60SSg' })
+    .then(client => client.postbacks.find({ transactionId: 7341631, id: 'po_ck368bv1v00b0vs733f9uuuc3' }))
+    .then( postback => { alert("O postback da transação " + postback.model_id + " está com status " + postback.status + "!")}) 
+}
+
+function elasticsearch() {
+
+    pagarme.client.connect({ api_key: 'ak_test_jbIXhrHXHOaUUNKtUVrkT9HGL60SSg' })
+    .then(client => client.search({
+    type: 'transaction',
+    query: {
+      "query": {
+        "terms": {
+          "items.id": [
+            "r123"
+          ]
+        }
+      }
+    }
+  }))
+  .then(result => {alert("Foram encontradas " + String(result.hits.total) + " resultados para a busca avançada por transações com produtos de id r123!")})
+}
+</script>
+</html>
+
