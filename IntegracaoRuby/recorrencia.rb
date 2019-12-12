@@ -15,7 +15,8 @@ def Recorrencia()
         :card_cvv => "314",
         :postback_url => "http://test.com/postback",
         :customer => {
-            email: "api@test.com"
+            email: "api@test.com",
+            document_number: "75948706036"
         }
     })
     subscription.plan = plan
