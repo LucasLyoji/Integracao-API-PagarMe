@@ -23,13 +23,7 @@ namespace CSharptest2
             {
                 Email = "api@test.com",
                 Name = "Rick",
-                Documents = new[]
-            {
-                new Document{
-                Type = DocumentType.Cpf,
-                Number = "30621143049"
-                }
-            },
+                DocumentNumber = "30621143049"
             };
 
             subscription.Customer = customer;
